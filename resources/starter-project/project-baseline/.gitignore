@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+
+# Generated datasets and model artifacts are produced by DVC.
+data/
+artifacts/
+
+# Local experiment tracking state must not be committed.
+mlflow.db
+mlruns/
+
+# Optional local DVC remote used in the laboratory.
+dvc-storage/
+/data
+.env
+.env.*
+!.env.example
+release-history.jsonl
+.release-state.json
+*.log
+
+# Generated monitoring and incident reports
+reports/

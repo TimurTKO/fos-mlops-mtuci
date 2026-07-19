@@ -1,0 +1,35 @@
+stages:
+  generate_data:
+    cmd: python scripts/generate_data.py --output-dir data --random-state ${data.random_state}
+    deps:
+      - scripts/generate_data.py
+    params:
+      - data.random_state
+    outs:
+      - data
+
+  train:
+    cmd: >-
+      python -m mlops_course.train
+      --data data/train.csv
+      --test-data data/test.csv
+      --contract configs/data_contract.json
+      --model artifacts/model.joblib
+      --metrics artifacts/metrics.json
+      --C ${train.C}
+      --max-iter ${train.max_iter}
+      --random-state ${train.random_state}
+    deps:
+      - data/train.csv
+      - data/test.csv
+      - configs/data_contract.json
+      - src/mlops_course/data.py
+      - src/mlops_course/train.py
+    params:
+      - train.C
+      - train.max_iter
+      - train.random_state
+    outs:
+      - artifacts/model.joblib
+    metrics:
+      - artifacts/metrics.json

@@ -1,0 +1,96 @@
+name: mlops-course
+
+services:
+  api:
+    image: "${API_IMAGE:-mlops-course-api}:${API_TAG:-stable}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_VERSION: "${BUILD_SERVICE_VERSION:-1.0.0}"
+        MODEL_VERSION: "${BUILD_MODEL_VERSION:-baseline-v1}"
+        MODEL_C: "${BUILD_MODEL_C:-1.0}"
+        MODEL_RANDOM_STATE: "${BUILD_MODEL_RANDOM_STATE:-42}"
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      RELEASE_CHANNEL: "${RELEASE_CHANNEL:-stable}"
+      PRELOAD_MODEL: "1"
+      SIMULATE_STARTUP_FAILURE: "${SIMULATE_STARTUP_FAILURE:-0}"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2).read()"
+      interval: 5s
+      timeout: 3s
+      start_period: 10s
+      retries: 8
+    networks:
+      - mlops-course
+
+  smoke:
+    image: "${API_IMAGE:-mlops-course-api}:${API_TAG:-stable}"
+    profiles: ["validation"]
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      EXPECTED_SERVICE_VERSION: "${EXPECTED_SERVICE_VERSION:-}"
+    entrypoint: ["python", "/app/scripts/smoke_test.py"]
+    command:
+      - --base-url
+      - http://api:8000
+      - --expected-service-version
+      - "${EXPECTED_SERVICE_VERSION:-}"
+    networks:
+      - mlops-course
+
+  prometheus:
+    image: prom/prometheus:v3.11.2
+    profiles: ["monitoring"]
+    depends_on:
+      api:
+        condition: service_healthy
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=2d
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/rules.yml:/etc/prometheus/rules.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    restart: unless-stopped
+    networks:
+      - mlops-course
+
+  grafana:
+    image: grafana/grafana:13.0.3
+    profiles: ["monitoring"]
+    depends_on:
+      - prometheus
+    environment:
+      GF_SECURITY_ADMIN_USER: "${GRAFANA_ADMIN_USER:-admin}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_ADMIN_PASSWORD:-change-me-locally}"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    restart: unless-stopped
+    networks:
+      - mlops-course
+
+networks:
+  mlops-course:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

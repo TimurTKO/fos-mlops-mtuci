@@ -1,0 +1,12 @@
+{
+  "assessment": "individual_project_defense",
+  "max_points": 22,
+  "criteria": [
+    {"id": "reproducibility", "title": "Воспроизводимость проекта", "max_points": 4},
+    {"id": "testing_ci", "title": "Тестирование и CI", "max_points": 4},
+    {"id": "data_models_experiments", "title": "Данные, модели и эксперименты", "max_points": 4},
+    {"id": "api_deployment", "title": "API, контейнеризация и развёртывание", "max_points": 4},
+    {"id": "monitoring_incident", "title": "Мониторинг и реагирование", "max_points": 4},
+    {"id": "documentation_defense", "title": "Документация и индивидуальная защита", "max_points": 2}
+  ]
+}

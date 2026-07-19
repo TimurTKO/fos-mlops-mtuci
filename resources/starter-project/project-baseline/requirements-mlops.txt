@@ -1,0 +1,4 @@
+-r requirements.txt
+dvc>=3.60,<4.0
+mlflow>=3.0,<4.0
+pyyaml>=6.0,<7.0

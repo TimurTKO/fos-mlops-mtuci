@@ -1,0 +1,202 @@
+fos-mlops-mtuci/
+├── data/
+│   ├── competency-catalog.csv
+│   ├── krm-v3.0.xlsx
+│   ├── README.md
+│   └── role-competency-matrix.csv
+├── docs/
+│   ├── source/
+│   │   ├── FOS-MLOps.docx
+│   │   └── RPD-MLOps.docx
+│   ├── measurement-model.md
+│   ├── quality-checklist.md
+│   ├── README.md
+│   └── rpd.md
+├── Exam/
+│   ├── attachments/
+│   │   └── .gitkeep
+│   ├── assessment-sheet.md
+│   ├── individual-defense-protocol.md
+│   ├── live-change-bank.md
+│   ├── question-bank.md
+│   ├── README.md
+│   └── scoring.json
+├── M1-engineering-testing/
+│   ├── attachments/
+│   │   └── .gitkeep
+│   ├── kim-01-project-structure.md
+│   ├── kim-02-automated-checks.md
+│   ├── kim-03-ci-pipeline.md
+│   ├── README.md
+│   └── rubric-module-1.md
+├── M2-reproducibility-experiments/
+│   ├── attachments/
+│   │   ├── experiment-report-template.md
+│   │   └── traceability-template.md
+│   ├── kim-04-dvc-pipeline.md
+│   ├── kim-05-mlflow.md
+│   ├── README.md
+│   └── rubric-module-2.md
+├── M3-deployment/
+│   ├── attachments/
+│   │   └── .gitkeep
+│   ├── kim-06-api-compose.md
+│   ├── kim-07-update-rollback.md
+│   ├── README.md
+│   └── rubric-module-3.md
+├── M4-monitoring-incidents/
+│   ├── attachments/
+│   │   └── .gitkeep
+│   ├── kim-08-monitoring-drift.md
+│   ├── kim-09-incident.md
+│   ├── README.md
+│   └── rubric-module-4.md
+├── methodical-guidelines/
+│   ├── students/
+│   │   └── README.md
+│   ├── teachers-assessment/
+│   │   └── README.md
+│   ├── teachers-resources/
+│   │   └── README.md
+│   └── README.md
+├── other/
+│   └── README.md
+├── Project/
+│   ├── attachments/
+│   │   └── .gitkeep
+│   ├── ai-use-declaration-template.md
+│   ├── README.md
+│   ├── submission-checklist.md
+│   └── traceability-template.md
+├── resources/
+│   ├── benchmarks/
+│   │   └── README.md
+│   ├── datasets/
+│   │   ├── generated/
+│   │   │   ├── incident_bad_schema.csv
+│   │   │   ├── incident_degraded.csv
+│   │   │   ├── metadata.json
+│   │   │   ├── production_drift.csv
+│   │   │   ├── production_normal.csv
+│   │   │   ├── test.csv
+│   │   │   ├── train.csv
+│   │   │   └── updated.csv
+│   │   ├── data_contract.json
+│   │   ├── generate_data.py
+│   │   └── README.md
+│   ├── llm-prompts/
+│   │   ├── debugging-prompt-template.md
+│   │   └── README.md
+│   ├── other/
+│   │   └── README.md
+│   ├── papers/
+│   │   └── README.md
+│   ├── problem-banks/
+│   │   └── README.md
+│   ├── software/
+│   │   └── python-libs/
+│   │       └── README.md
+│   ├── starter-project/
+│   │   ├── project-baseline/
+│   │   │   ├── .dvc/
+│   │   │   │   ├── .gitignore
+│   │   │   │   └── config
+│   │   │   ├── .github/
+│   │   │   │   └── workflows/
+│   │   │   │       └── ci.yml
+│   │   │   ├── configs/
+│   │   │   │   └── data_contract.json
+│   │   │   ├── deployment/
+│   │   │   │   ├── README.md
+│   │   │   │   └── release-policy-template.md
+│   │   │   ├── monitoring/
+│   │   │   │   ├── grafana/
+│   │   │   │   │   ├── dashboards/
+│   │   │   │   │   │   └── mlops-course.json
+│   │   │   │   │   └── provisioning/
+│   │   │   │   │       ├── dashboards/
+│   │   │   │   │       │   └── dashboards.yml
+│   │   │   │   │       └── datasources/
+│   │   │   │   │           └── prometheus.yml
+│   │   │   │   ├── prometheus/
+│   │   │   │   │   ├── prometheus.yml
+│   │   │   │   │   └── rules.yml
+│   │   │   │   ├── incident-scenarios.md
+│   │   │   │   ├── postmortem-template.md
+│   │   │   │   └── README.md
+│   │   │   ├── notebooks/
+│   │   │   │   └── 01_ml_prototype.ipynb
+│   │   │   ├── scripts/
+│   │   │   │   ├── analyze_drift.py
+│   │   │   │   ├── generate_data.py
+│   │   │   │   ├── generate_traffic.py
+│   │   │   │   ├── investigate_incident.py
+│   │   │   │   ├── release_manager.py
+│   │   │   │   ├── run_experiments.py
+│   │   │   │   └── smoke_test.py
+│   │   │   ├── src/
+│   │   │   │   └── mlops_course/
+│   │   │   │       ├── __init__.py
+│   │   │   │       ├── api.py
+│   │   │   │       ├── data.py
+│   │   │   │       ├── monitoring.py
+│   │   │   │       ├── predict.py
+│   │   │   │       └── train.py
+│   │   │   ├── tests/
+│   │   │   │   ├── conftest.py
+│   │   │   │   ├── test_api.py
+│   │   │   │   ├── test_data.py
+│   │   │   │   ├── test_deployment_config.py
+│   │   │   │   ├── test_drift_analysis.py
+│   │   │   │   ├── test_experiment_config.py
+│   │   │   │   ├── test_incident_analysis.py
+│   │   │   │   ├── test_model.py
+│   │   │   │   ├── test_monitoring_api.py
+│   │   │   │   ├── test_monitoring_config.py
+│   │   │   │   ├── test_release_manager.py
+│   │   │   │   ├── test_smoke_test.py
+│   │   │   │   └── test_training.py
+│   │   │   ├── .dockerignore
+│   │   │   ├── .dvcignore
+│   │   │   ├── .env.example
+│   │   │   ├── .gitignore
+│   │   │   ├── compose.yaml
+│   │   │   ├── Dockerfile
+│   │   │   ├── dvc.lock
+│   │   │   ├── dvc.yaml
+│   │   │   ├── Makefile
+│   │   │   ├── params.yaml
+│   │   │   ├── pyproject.toml
+│   │   │   ├── README.md
+│   │   │   ├── requirements-mlops.txt
+│   │   │   └── requirements.txt
+│   │   └── README.md
+│   ├── templates/
+│   │   └── README.md
+│   ├── test-banks/
+│   │   ├── answer-key.md
+│   │   ├── README.md
+│   │   ├── test-01.md
+│   │   ├── test-02.md
+│   │   ├── test-03.md
+│   │   ├── test-04.md
+│   │   ├── test-05.md
+│   │   ├── test-06.md
+│   │   ├── test-07.md
+│   │   ├── test-08.md
+│   │   └── test-09.md
+│   ├── textbooks/
+│   │   └── README.md
+│   └── README.md
+├── team/
+│   ├── images/
+│   │   └── .gitkeep
+│   └── README.md
+├── tools/
+│   ├── README.md
+│   └── validate_repository.py
+├── .gitignore
+├── CONTRIBUTING.md
+├── LICENSE.md
+├── README.md
+└── repository-tree.txt

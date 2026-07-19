@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  generate_data:
+    cmd: python scripts/generate_data.py --output-dir data --random-state 42
+    deps:
+    - path: scripts/generate_data.py
+      hash: md5
+      md5: cefe592eea76c1a7c70ea9a979632ea6
+      size: 5546
+    params:
+      params.yaml:
+        data.random_state: 42
+    outs:
+    - path: data
+      hash: md5
+      md5: df7b8fd49fbbd5673bcbfd7ca36a5b81.dir
+      size: 1303242
+      nfiles: 8
+  train:
+    cmd: python -m mlops_course.train --data data/train.csv --test-data
+      data/test.csv --contract configs/data_contract.json --model
+      artifacts/model.joblib --metrics artifacts/metrics.json --C 1.0 --max-iter
+      1000 --random-state 42
+    deps:
+    - path: configs/data_contract.json
+      hash: md5
+      md5: cccae373b83c2039b9f8a9553cfe1887
+      size: 659
+    - path: data/test.csv
+      hash: md5
+      md5: 87e338da798b140fbb18682c4d242fe1
+      size: 112693
+    - path: data/train.csv
+      hash: md5
+      md5: 94665b98181e53922a32511dbdad40bd
+      size: 337582
+    - path: src/mlops_course/data.py
+      hash: md5
+      md5: e310ace560ad0f29d7a41a4022b2ab7b
+      size: 1312
+    - path: src/mlops_course/train.py
+      hash: md5
+      md5: 0e6a32b2c7258db5acb6766cca66dc51
+      size: 4655
+    params:
+      params.yaml:
+        train.C: 1.0
+        train.max_iter: 1000
+        train.random_state: 42
+    outs:
+    - path: artifacts/metrics.json
+      hash: md5
+      md5: e152de962e6834a0a73618a1015a6301
+      size: 365
+    - path: artifacts/model.joblib
+      hash: md5
+      md5: 7819c8a6740308787d70e796c6efcccc
+      size: 2395

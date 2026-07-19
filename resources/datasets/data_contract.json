@@ -1,0 +1,27 @@
+{
+  "contract_version": "1.0",
+  "task": "binary_classification",
+  "feature_columns": [
+    "feature_00",
+    "feature_01",
+    "feature_02",
+    "feature_03",
+    "feature_04",
+    "feature_05",
+    "feature_06",
+    "feature_07",
+    "feature_08",
+    "feature_09",
+    "feature_10",
+    "feature_11"
+  ],
+  "target_column": "target",
+  "feature_type": "number",
+  "target_values": [
+    0,
+    1
+  ],
+  "nullable": false,
+  "minimum_rows": 100,
+  "notes": "Учебный контракт. Диапазоны признаков контролируются статистически, а не жёсткими предметными границами."
+}

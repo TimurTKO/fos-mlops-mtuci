@@ -1,0 +1,170 @@
+{
+  "generator": "sklearn.datasets.make_classification",
+  "random_state": 42,
+  "task": "synthetic_binary_classification",
+  "feature_columns": [
+    "feature_00",
+    "feature_01",
+    "feature_02",
+    "feature_03",
+    "feature_04",
+    "feature_05",
+    "feature_06",
+    "feature_07",
+    "feature_08",
+    "feature_09",
+    "feature_10",
+    "feature_11"
+  ],
+  "target_column": "target",
+  "files": {
+    "train.csv": {
+      "rows": 1440,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_03",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45069444444444445,
+      "sha256": "ff5f5e09455f6aa3a6353776a83a2f51377c0bf3ce5c22857295fe4234f751a5"
+    },
+    "test.csv": {
+      "rows": 480,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_03",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45,
+      "sha256": "e5903c4a685173b164a9818bc18fd3ffa97e35d6ce5d7038e5a285b7bd41d886"
+    },
+    "production_normal.csv": {
+      "rows": 480,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_03",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45,
+      "sha256": "66f9644682641dcafb8ce0c77bfdacd6006d434619bdbe25ff5b493b0a10b761"
+    },
+    "updated.csv": {
+      "rows": 1740,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_03",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45632183908045976,
+      "sha256": "c9aa6abeab0e3dbe198473070a6e473611d656c76fb14b445d98c1b783518076"
+    },
+    "production_drift.csv": {
+      "rows": 480,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_03",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45,
+      "sha256": "d025332302cafe03bd3c715cde7b3d8d310c1814fcef701d066dfe7cdb2258e6"
+    },
+    "incident_degraded.csv": {
+      "rows": 480,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_03",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45,
+      "sha256": "08505b6b5df0df10caca7ba8943bb816cd96035fcfed32c56bdc395396d66a2e"
+    },
+    "incident_bad_schema.csv": {
+      "rows": 480,
+      "columns": [
+        "feature_00",
+        "feature_01",
+        "feature_02",
+        "feature_04",
+        "feature_05",
+        "feature_06",
+        "feature_07",
+        "feature_08",
+        "feature_09",
+        "feature_10",
+        "feature_11",
+        "target"
+      ],
+      "target_rate": 0.45,
+      "sha256": "177f94c056d542677f2e119d1d7c4beeea1d1445863bb839a910b588fc530327"
+    }
+  },
+  "usage": {
+    "train.csv": "обучение базовой модели",
+    "test.csv": "оценка качества и регрессионные тесты",
+    "production_normal.csv": "нормальный поток данных",
+    "updated.csv": "новая версия данных для DVC",
+    "production_drift.csv": "сценарий data drift",
+    "incident_degraded.csv": "сценарий деградации качества",
+    "incident_bad_schema.csv": "сценарий нарушения контракта данных"
+  }
+}
