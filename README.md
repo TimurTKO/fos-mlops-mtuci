@@ -1,8 +1,26 @@
 # Фонд оценочных средств по дисциплине «MLOps и инженерия жизненного цикла ML-систем»
 
-> Статус: технически проверенная рабочая версия. Разработаны четыре модуля, девять тестов, девять лабораторных работ, четыре рубежные защиты, сквозной проект и регламент индивидуальной защиты. Формулировки и уровни сверены с включённой актуальной книгой КРМ 3.0. Открытая лицензия требует решения ответственного правообладателя/автора.
+> Статус: технически проверенная рабочая версия. Разработаны четыре модуля, девять тестов, девять лабораторных работ, четыре рубежные защиты, сквозной проект и регламент индивидуальной защиты. Формулировки и уровни сверены с включённой актуальной книгой КРМ 3.0. Модель лицензирования согласована авторским коллективом.
 
 Репозиторий предназначен для открытого и воспроизводимого представления рабочей программы дисциплины, модели измерения результатов обучения, контрольно-измерительных материалов, критериев оценивания, методических рекомендаций и образовательных ресурсов.
+
+## Версии репозитория
+
+Ветка `main` представляет полную экспертно-преподавательскую версию комплексного ФОС. Она предназначена для рассмотрения, тиражирования и подготовки дисциплины преподавателем.
+
+Ветка [`student`](https://github.com/TimurTKO/fos-mlops-mtuci/tree/student) представляет демонстрационную студенческую поставку: без ключей ответов, эталонных решений и закрытых преподавательских материалов.
+
+При фактическом проведении дисциплины преподаватель создаёт собственную копию репозитория и адаптирует студенческую поставку под инфраструктуру и правила образовательной организации.
+
+Репозиторий является публичным, поэтому ветка `student` не ограничивает доступ к ветке `main`: это демонстрация рекомендуемого состава выдачи, а не техническое средство разграничения доступа. Перечень материалов, не включаемых в студенческую поставку, приведён в [`.student-exclude`](.student-exclude); соответствие поставки этому перечню проверяется скриптом [`tools/check_student_delivery.py`](tools/check_student_delivery.py).
+
+## Лицензирование
+
+Лицензирование согласовано авторским коллективом.
+
+Учебно-методические материалы предоставляются на условиях CC BY 4.0, оригинальный программный код — на условиях MIT License. Сторонние материалы сохраняют собственный правовой режим. Подробнее: [`LICENSE.md`](LICENSE.md).
+
+Состав авторского коллектива — [`NOTICE.md`](NOTICE.md). Перечень сторонних материалов — [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 ## Быстрая навигация
 
@@ -23,6 +41,8 @@
 - [Базовый ML-проект](resources/starter-project/project-baseline/README.md)
 - [Команда](team/README.md)
 - [Контроль качества](docs/quality-checklist.md)
+- [Ответ на замечания кросс-валидации](docs/cross-validation-response.md)
+- [Правовой режим материалов](LICENSE.md)
 
 ## 1. О дисциплине
 
@@ -56,6 +76,61 @@
 ## 4. Техническое ядро
 
 [`resources/starter-project/project-baseline`](resources/starter-project/project-baseline/README.md) содержит воспроизводимый учебный проект: генератор данных, модель, тесты, CI, DVC, MLflow, FastAPI, Docker Compose, выпуск/откат, Prometheus, Grafana, drift-анализ и расследование инцидентов.
+
+### 4.1. Архитектура сквозного проекта
+
+```mermaid
+flowchart LR
+    NB["Notebook и исходные данные<br/>01_ml_prototype.ipynb<br/>generate_data.py"]
+    SRC["Структурированный<br/>Python-проект<br/>src/mlops_course"]
+    CI["Тестирование<br/>и GitHub Actions<br/>pytest, ci.yml"]
+    DVC["DVC<br/>dvc.yaml, params.yaml"]
+    MLF["MLflow<br/>run_experiments.py"]
+    API["FastAPI<br/>health, ready, predict, metrics"]
+    DC["Docker Compose<br/>Dockerfile, smoke_test.py"]
+    MON["Prometheus и Grafana<br/>метрики, правила, дашборд"]
+    INC["Drift или инцидент<br/>analyze_drift.py<br/>investigate_incident.py"]
+    ACT["Переобучение или откат<br/>release_manager.py"]
+
+    NB --> SRC --> CI --> DVC --> MLF --> API --> DC --> MON --> INC --> ACT
+    ACT -. переобучение .-> DVC
+    ACT -. откат .-> DC
+```
+
+Роль элементов:
+
+- **Notebook и исходные данные** — исследовательский прототип и воспроизводимый генератор синтетического датасета с контрактом данных; отправная точка ЛР1.
+- **Структурированный Python-проект** — разделение загрузки и проверки данных, обучения, инференса и API по модулям `src/mlops_course`.
+- **Тестирование и GitHub Actions** — проверки кода, данных, модели и API, выполняемые локально и в CI; неуспешная проверка блокирует изменение.
+- **DVC** — граф воспроизводимого пайплайна и версии данных, параметров и модели.
+- **MLflow** — трекинг экспериментов, сравнение запусков и обоснованный выбор модели по заранее объявленному quality gate.
+- **FastAPI** — сервис инференса с health-, readiness- и метрик-endpoint и валидацией входных данных.
+- **Docker Compose** — переносимый запуск сервиса, healthcheck, smoke-проверка и управляемый выпуск версии.
+- **Prometheus и Grafana** — сбор технических и ML-метрик, правила сигналов и дашборд наблюдаемости.
+- **Drift или инцидент** — сценарии сдвига распределения, деградации качества и нарушения контракта данных с диагностическими отчётами.
+- **Переобучение или откат** — соразмерная реакция: возврат к стабильной версии либо новый цикл обучения с повторной проверкой quality gate.
+
+### 4.2. Что получает студент на старте
+
+Материалы, доступные обучающемуся до начала выполнения лабораторных работ:
+
+| Материал | Расположение |
+|---|---|
+| Исходный ноутбук с прототипом модели | [`notebooks/01_ml_prototype.ipynb`](resources/starter-project/project-baseline/notebooks/01_ml_prototype.ipynb) |
+| Генератор синтетического датасета | [`resources/datasets/generate_data.py`](resources/datasets/generate_data.py) |
+| Сформированные версии данных и сценарии инцидентов | [`resources/datasets/README.md`](resources/datasets/README.md) |
+| Контракт данных | [`resources/datasets/data_contract.json`](resources/datasets/data_contract.json) |
+| Базовая модель `LogisticRegression` в составе прототипа | [`notebooks/01_ml_prototype.ipynb`](resources/starter-project/project-baseline/notebooks/01_ml_prototype.ipynb) |
+| Каркас Python-проекта и структура `src/tests/configs` | [`resources/starter-project/project-baseline/README.md`](resources/starter-project/project-baseline/README.md) |
+| Требования к API: `/health`, `/ready`, `/predict`, `/docs` | [`kim-06-api-compose.md`](M3-deployment/kim-06-api-compose.md) |
+| Конфигурационные шаблоны параметров и окружения | [`params.yaml`](resources/starter-project/project-baseline/params.yaml), [`.env.example`](resources/starter-project/project-baseline/.env.example) |
+| Задания девяти лабораторных работ | [`M1`](M1-engineering-testing/README.md), [`M2`](M2-reproducibility-experiments/README.md), [`M3`](M3-deployment/README.md), [`M4`](M4-monitoring-incidents/README.md) |
+| Критерии оценивания и рубрики | [`rubric-module-1.md`](M1-engineering-testing/rubric-module-1.md), [`rubric-module-2.md`](M2-reproducibility-experiments/rubric-module-2.md), [`rubric-module-3.md`](M3-deployment/rubric-module-3.md), [`rubric-module-4.md`](M4-monitoring-incidents/rubric-module-4.md), [`Exam/README.md`](Exam/README.md) |
+| Шаблоны отчётов, прослеживаемости, постмортема и политики выпуска | [`resources/templates/README.md`](resources/templates/README.md) |
+| Короткие тесты №1–9 без ключа | [`resources/test-banks/README.md`](resources/test-banks/README.md) |
+| Методические указания обучающимся | [`methodical-guidelines/students/README.md`](methodical-guidelines/students/README.md) |
+
+В ветке `main` перечисленные материалы соседствуют с преподавательскими: ключом к тестам, банками вопросов и живых изменений и полной эталонной реализацией учебного проекта. В ветке `student` преподавательские материалы исключены, а реализации учебного проекта заменены каркасом с `TODO` при сохранении структуры и интерфейсов.
 
 ## 5. Сквозной проект и защита
 
