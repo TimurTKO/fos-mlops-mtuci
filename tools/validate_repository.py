@@ -19,7 +19,10 @@ ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / "resources" / "starter-project" / "project-baseline"
 REQUIRED = [
     "README.md", "LICENSE.md", "CONTRIBUTING.md", "repository-tree.txt",
+    "NOTICE.md", "THIRD_PARTY_NOTICES.md", "LICENSES/CC-BY-4.0.txt", "LICENSES/MIT.txt",
+    ".student-exclude", "tools/check_student_delivery.py",
     "docs/README.md", "docs/rpd.md", "docs/measurement-model.md", "docs/quality-checklist.md",
+    "docs/cross-validation-response.md",
     "docs/source/RPD-MLOps.docx", "docs/source/FOS-MLOps.docx",
     "data/README.md", "data/krm-v3.0.xlsx", "data/competency-catalog.csv", "data/role-competency-matrix.csv",
     "Project/README.md", "Project/submission-checklist.md", "Project/ai-use-declaration-template.md", "Project/traceability-template.md",
@@ -128,6 +131,23 @@ for script_name in ["run_experiments.py", "smoke_test.py", "release_manager.py",
         py_compile.compile(str(BASELINE / "scripts" / script_name), doraise=True)
     except py_compile.PyCompileError as error:
         errors.append(f"Синтаксическая ошибка в {script_name}: {error}")
+
+try:
+    py_compile.compile(str(ROOT / "tools" / "check_student_delivery.py"), doraise=True)
+except py_compile.PyCompileError as error:
+    errors.append(f"Синтаксическая ошибка в check_student_delivery.py: {error}")
+
+# Манифест студенческой поставки должен ссылаться только на существующие пути.
+try:
+    from check_student_delivery import parse_manifest
+
+    manifest = parse_manifest(ROOT / ".student-exclude")
+    for section in ("exclude", "skeleton", "require"):
+        for entry in manifest[section]:
+            if not (ROOT / entry.rstrip("/")).exists():
+                errors.append(f"Манифест .student-exclude, секция [{section}]: путь отсутствует — {entry}")
+except (ImportError, ValueError, OSError) as error:
+    errors.append(f"Не удалось проверить манифест .student-exclude: {error}")
 
 if errors:
     print("Проверка не пройдена:")
