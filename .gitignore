@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.log
+.DS_Store
+Thumbs.db
+mlruns/
+artifacts/
+models/*.pkl
+data/raw/*.csv

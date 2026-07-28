@@ -1,0 +1,178 @@
+# Манифест студенческого комплекта
+#
+# Файл описывает, какие материалы репозитория НЕ включаются в студенческий
+# комплект, какие включаются в виде каркаса с TODO и какие обязаны
+# присутствовать. Демонстрационный студенческий комплект размещён в ветке student.
+#
+# Репозиторий публичный: манифест и ветка student не ограничивают доступ
+# к ветке main. Это описание рекомендуемого состава выдачи, а не средство
+# разграничения доступа.
+#
+# Проверка соответствия:
+#   python tools/check_student_delivery.py --root <каталог студенческого комплекта>
+#
+# Формат: строки с # — комментарии; секции задаются в квадратных скобках;
+# пути указываются относительно корня репозитория, разделитель — «/».
+# Путь, оканчивающийся на «/», означает каталог целиком.
+
+# ---------------------------------------------------------------------------
+# 1. Материалы, полностью исключаемые из студенческого комплекта
+# ---------------------------------------------------------------------------
+[exclude]
+
+# Ключ к коротким тестам
+resources/test-banks/answer-key.md
+
+# Полные банки материалов итоговой индивидуальной защиты
+Exam/question-bank.md
+Exam/live-change-bank.md
+
+# Методические материалы, предназначенные только для преподавателя
+methodical-guidelines/teachers/
+methodical-guidelines/teachers-assessment/
+methodical-guidelines/teachers-resources/
+
+# Эталонный инструмент проверки полной преподавательской версии
+tools/validate_repository.py
+
+# Готовые решения лабораторных работ в составе эталонного проекта
+resources/starter-project/project-baseline/dvc.lock
+resources/starter-project/project-baseline/Makefile
+resources/starter-project/project-baseline/.dvc/
+resources/starter-project/project-baseline/tests/conftest.py
+resources/starter-project/project-baseline/tests/test_api.py
+resources/starter-project/project-baseline/tests/test_data.py
+resources/starter-project/project-baseline/tests/test_deployment_config.py
+resources/starter-project/project-baseline/tests/test_drift_analysis.py
+resources/starter-project/project-baseline/tests/test_experiment_config.py
+resources/starter-project/project-baseline/tests/test_incident_analysis.py
+resources/starter-project/project-baseline/tests/test_model.py
+resources/starter-project/project-baseline/tests/test_monitoring_api.py
+resources/starter-project/project-baseline/tests/test_monitoring_config.py
+resources/starter-project/project-baseline/tests/test_release_manager.py
+resources/starter-project/project-baseline/tests/test_smoke_test.py
+resources/starter-project/project-baseline/tests/test_training.py
+resources/starter-project/project-baseline/monitoring/grafana/dashboards/mlops-course.json
+resources/starter-project/project-baseline/monitoring/grafana/provisioning/dashboards/dashboards.yml
+resources/starter-project/project-baseline/monitoring/grafana/provisioning/datasources/prometheus.yml
+
+# ---------------------------------------------------------------------------
+# 2. Материалы, включаемые в виде каркаса: структура и интерфейсы сохранены,
+#    реализация заменена комментариями TODO
+# ---------------------------------------------------------------------------
+[skeleton]
+
+resources/starter-project/project-baseline/src/mlops_course/data.py
+resources/starter-project/project-baseline/src/mlops_course/train.py
+resources/starter-project/project-baseline/src/mlops_course/predict.py
+resources/starter-project/project-baseline/src/mlops_course/api.py
+resources/starter-project/project-baseline/src/mlops_course/monitoring.py
+resources/starter-project/project-baseline/scripts/run_experiments.py
+resources/starter-project/project-baseline/scripts/smoke_test.py
+resources/starter-project/project-baseline/scripts/release_manager.py
+resources/starter-project/project-baseline/scripts/generate_traffic.py
+resources/starter-project/project-baseline/scripts/analyze_drift.py
+resources/starter-project/project-baseline/scripts/investigate_incident.py
+resources/starter-project/project-baseline/dvc.yaml
+resources/starter-project/project-baseline/Dockerfile
+resources/starter-project/project-baseline/compose.yaml
+resources/starter-project/project-baseline/.github/workflows/ci.yml
+resources/starter-project/project-baseline/monitoring/prometheus/prometheus.yml
+resources/starter-project/project-baseline/monitoring/prometheus/rules.yml
+
+# ---------------------------------------------------------------------------
+# 3. Материалы, обязательные для студенческого комплекта
+# ---------------------------------------------------------------------------
+[require]
+
+README.md
+LICENSE.md
+LICENSES/CC-BY-4.0.txt
+LICENSES/MIT.txt
+NOTICE.md
+THIRD_PARTY_NOTICES.md
+.student-exclude
+tools/check_student_delivery.py
+
+# РПД, ФОС и модель измерения
+docs/rpd.md
+docs/measurement-model.md
+docs/source/RPD-MLOps.docx
+docs/source/FOS-MLOps.docx
+data/README.md
+data/competency-catalog.csv
+data/role-competency-matrix.csv
+
+# Задания лабораторных работ
+M1-engineering-testing/kim-01-project-structure.md
+M1-engineering-testing/kim-02-automated-checks.md
+M1-engineering-testing/kim-03-ci-pipeline.md
+M2-reproducibility-experiments/kim-04-dvc-pipeline.md
+M2-reproducibility-experiments/kim-05-mlflow.md
+M3-deployment/kim-06-api-compose.md
+M3-deployment/kim-07-update-rollback.md
+M4-monitoring-incidents/kim-08-monitoring-drift.md
+M4-monitoring-incidents/kim-09-incident.md
+
+# Критерии оценивания и открытые рубрики
+M1-engineering-testing/rubric-module-1.md
+M2-reproducibility-experiments/rubric-module-2.md
+M3-deployment/rubric-module-3.md
+M4-monitoring-incidents/rubric-module-4.md
+Exam/README.md
+Exam/scoring.json
+Exam/individual-defense-protocol.md
+
+# Пустые шаблоны
+Exam/assessment-sheet.md
+Project/submission-checklist.md
+Project/ai-use-declaration-template.md
+Project/traceability-template.md
+M2-reproducibility-experiments/attachments/traceability-template.md
+M2-reproducibility-experiments/attachments/experiment-report-template.md
+resources/starter-project/project-baseline/deployment/release-policy-template.md
+resources/starter-project/project-baseline/monitoring/postmortem-template.md
+
+# Методические указания для студентов
+methodical-guidelines/README.md
+methodical-guidelines/students/README.md
+
+# Стартовые материалы, контракт данных и исходный ноутбук
+resources/datasets/generate_data.py
+resources/datasets/data_contract.json
+resources/starter-project/project-baseline/notebooks/01_ml_prototype.ipynb
+resources/starter-project/project-baseline/configs/data_contract.json
+resources/starter-project/project-baseline/scripts/generate_data.py
+resources/starter-project/project-baseline/params.yaml
+resources/starter-project/project-baseline/.env.example
+resources/starter-project/project-baseline/pyproject.toml
+resources/starter-project/project-baseline/requirements.txt
+resources/starter-project/project-baseline/requirements-mlops.txt
+
+# Открытые тесты без ключа
+resources/test-banks/test-01.md
+resources/test-banks/test-02.md
+resources/test-banks/test-03.md
+resources/test-banks/test-04.md
+resources/test-banks/test-05.md
+resources/test-banks/test-06.md
+resources/test-banks/test-07.md
+resources/test-banks/test-08.md
+resources/test-banks/test-09.md
+
+# ---------------------------------------------------------------------------
+# 4. Имена файлов, недопустимые в студенческом комплекте в любом каталоге
+# ---------------------------------------------------------------------------
+[forbidden-names]
+
+answer-key.md
+answer-keys.md
+answers.md
+reference-solution.md
+reference-solutions.md
+solution.md
+solutions.md
+teacher-only.md
+teachers-only.md
+question-bank.md
+live-change-bank.md

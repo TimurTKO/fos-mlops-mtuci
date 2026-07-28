@@ -1,0 +1,26 @@
+# Docker Compose — шаблон студенческого комплекта.
+#
+# TODO (ЛР6): описать сервисы `api` и `smoke`.
+# TODO (ЛР8): добавить сервисы `prometheus` и `grafana` в профиль monitoring.
+#
+# Требования задания:
+#   api        — образ и сборка из локального Dockerfile, публикация порта,
+#                переменные окружения выпуска, healthcheck и restart-политика;
+#   smoke      — одноразовая проверка выпуска в профиле validation, стартует
+#                только после `service_healthy` у api;
+#   prometheus — сбор метрик по конфигурации monitoring/prometheus;
+#   grafana    — визуализация, источник данных и дашборд настраиваются
+#                провижинингом, пароль берётся из локального .env.
+#
+# Версии образов сторонних сервисов фиксируются явным тегом.
+# Секреты в файл не помещаются: используйте .env, созданный из .env.example.
+#
+# Проверка конфигурации: docker compose config
+
+name: mlops-course
+
+services: {}
+
+networks:
+  mlops-course:
+    driver: bridge
