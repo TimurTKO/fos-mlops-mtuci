@@ -1,4 +1,4 @@
-"""Проверка состава студенческой поставки по манифесту `.student-exclude`.
+"""Проверка состава студенческого комплекта по манифесту `.student-exclude`.
 
 Скрипт подтверждает, что в проверяемом дереве отсутствуют ключи ответов,
 эталонные решения и преподавательские материалы, что обязательные учебные
@@ -85,7 +85,7 @@ def check_excluded(root: Path, entries: list[str]) -> list[str]:
         if not target.exists():
             continue
         kind = "каталог" if entry.endswith("/") else "файл"
-        problems.append(f"Исключённый {kind} присутствует в поставке: {entry}")
+        problems.append(f"Исключённый {kind} присутствует в комплекте: {entry}")
     return problems
 
 
@@ -110,7 +110,7 @@ def check_forbidden_names(root: Path, names: list[str]) -> list[str]:
     problems = []
     for path in iterate_files(root):
         if path.name.lower() in forbidden:
-            problems.append(f"Недопустимое имя файла в поставке: {path.relative_to(root).as_posix()}")
+            problems.append(f"Недопустимое имя файла в комплекте: {path.relative_to(root).as_posix()}")
     return problems
 
 
@@ -133,18 +133,18 @@ def check_content_signatures(root: Path) -> list[str]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Проверка состава студенческой поставки")
+    parser = argparse.ArgumentParser(description="Проверка состава студенческого комплекта")
     parser.add_argument(
         "--root",
         type=Path,
         default=Path(__file__).resolve().parents[1],
-        help="каталог проверяемой поставки (по умолчанию — корень репозитория)",
+        help="каталог проверяемого комплекта (по умолчанию — корень репозитория)",
     )
     parser.add_argument(
         "--manifest",
         type=Path,
         default=None,
-        help=f"путь к манифесту (по умолчанию — {MANIFEST_NAME} в каталоге поставки)",
+        help=f"путь к манифесту (по умолчанию — {MANIFEST_NAME} в каталоге комплекта)",
     )
     args = parser.parse_args()
 
@@ -171,7 +171,7 @@ def main() -> int:
     problems += check_required(root, sections["require"])
     problems += check_skeletons(root, sections["skeleton"])
 
-    print(f"Проверяемая поставка: {root}")
+    print(f"Проверяемый комплект: {root}")
     print(f"Манифест: {manifest_path}")
     print(
         "Проверено записей: "
@@ -182,12 +182,12 @@ def main() -> int:
     )
 
     if problems:
-        print("Проверка студенческой поставки не пройдена:")
+        print("Проверка студенческого комплекта не пройдена:")
         for problem in problems:
             print(f"- {problem}")
         return 1
 
-    print("Студенческая поставка не содержит ключей, эталонных решений и преподавательских материалов.")
+    print("Студенческий комплект не содержит ключей, эталонных решений и преподавательских материалов.")
     print("Обязательные учебные материалы и файлы-каркасы на месте.")
     return 0
 
