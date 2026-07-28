@@ -8,6 +8,7 @@ fos-mlops-mtuci/
 │   ├── source/
 │   │   ├── FOS-MLOps.docx
 │   │   └── RPD-MLOps.docx
+│   ├── cross-validation-response.md
 │   ├── measurement-model.md
 │   ├── quality-checklist.md
 │   ├── README.md
@@ -21,6 +22,9 @@ fos-mlops-mtuci/
 │   ├── question-bank.md
 │   ├── README.md
 │   └── scoring.json
+├── LICENSES/
+│   ├── CC-BY-4.0.txt
+│   └── MIT.txt
 ├── M1-engineering-testing/
 │   ├── attachments/
 │   │   └── .gitkeep
@@ -193,10 +197,14 @@ fos-mlops-mtuci/
 │   │   └── .gitkeep
 │   └── README.md
 ├── tools/
+│   ├── check_student_delivery.py
 │   ├── README.md
 │   └── validate_repository.py
 ├── .gitignore
+├── .student-exclude
 ├── CONTRIBUTING.md
 ├── LICENSE.md
+├── NOTICE.md
 ├── README.md
-└── repository-tree.txt
+├── repository-tree.txt
+└── THIRD_PARTY_NOTICES.md
