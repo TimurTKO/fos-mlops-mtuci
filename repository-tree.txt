@@ -58,9 +58,14 @@ fos-mlops-mtuci/
 ├── methodical-guidelines/
 │   ├── students/
 │   │   └── README.md
+│   ├── teachers/
+│   │   ├── assessment-example.md
+│   │   ├── course-runbook.md
+│   │   └── troubleshooting.md
 │   ├── teachers-assessment/
 │   │   └── README.md
 │   ├── teachers-resources/
+│   │   ├── integration-smoke-test.md
 │   │   └── README.md
 │   └── README.md
 ├── other/
