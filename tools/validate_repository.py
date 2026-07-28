@@ -137,7 +137,7 @@ try:
 except py_compile.PyCompileError as error:
     errors.append(f"Синтаксическая ошибка в check_student_delivery.py: {error}")
 
-# Манифест студенческой поставки должен ссылаться только на существующие пути.
+# Манифест студенческого комплекта должен ссылаться только на существующие пути.
 try:
     from check_student_delivery import parse_manifest
 
