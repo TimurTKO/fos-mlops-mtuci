@@ -65,6 +65,7 @@ fos-mlops-mtuci/
 │   ├── teachers-assessment/
 │   │   └── README.md
 │   ├── teachers-resources/
+│   │   ├── integration-smoke-test.md
 │   │   └── README.md
 │   └── README.md
 ├── other/
